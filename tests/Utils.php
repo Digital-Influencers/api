@@ -7,7 +7,7 @@ use Faker\Generator;
 
 trait Utils
 {
-    public function makeFaker()
+    public static function makeFaker()
     {
         $app = app();
 
