@@ -3,11 +3,31 @@
 namespace Tests\Feature\Api\Auth;
 
 use Faker\Factory;
+use Database\Factories\UserFactory;
 use Illuminate\Foundation\Testing\WithFaker;
 
 class RegisterTest extends AuthTestCase
 {
     use WithFaker;
+
+
+    public function test_create_new_user_with_success()
+    {
+        $password = $this->faker->password;
+
+        $data = [
+            'name' => $this->faker->name(),
+            'email' => $this->faker->companyEmail(),
+            'password' => $password,
+            'password_confirmation' => $password,
+        ];
+
+        $response = $this->postJson(route('api.auth.register'), $data);
+
+        $response
+            ->assertSuccessful()
+            ->assertCreated();
+    }
 
     /**
      * @dataProvider InputErrorsDataProvider

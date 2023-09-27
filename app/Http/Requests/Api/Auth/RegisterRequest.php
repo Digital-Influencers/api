@@ -3,12 +3,16 @@
 namespace App\Http\Requests\Api\Auth;
 
 use Faker\Factory;
+use App\Data\UserData;
+use Spatie\LaravelData\WithData;
 use Database\Factories\UserFactory;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class RegisterRequest extends FormRequest
 {
+    use WithData;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -29,6 +33,11 @@ class RegisterRequest extends FormRequest
             'email'    => ['required', 'email', 'min:5', 'max:255'],
             'password' => ['required', 'confirmed'],
         ];
+    }
+
+    protected function dataClass(): string
+    {
+        return UserData::class;
     }
 }
 
