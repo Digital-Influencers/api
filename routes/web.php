@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return [
+        Str::title(config('app.name')) => vsprintf('v%s', [app()->version()]),
+        'core' => vsprintf('v%s', [phpversion()])
+    ];
 });
